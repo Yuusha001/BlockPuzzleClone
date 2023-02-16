@@ -37,6 +37,9 @@ namespace BlockPuzzle
             set => mainCanvas = value;
         }
 
+        [SerializeField]
+        List<Sprite> image = new List<Sprite>();
+
         // Start is called before the first frame update
         void Start() { }
 
@@ -79,6 +82,7 @@ namespace BlockPuzzle
 
         public void New3Shape()
         {
+            int _rd = 0;
             if (shapeList.Count != 0)
                 CleanList();
             for (var i = 0; i < 3; i++)
@@ -88,6 +92,8 @@ namespace BlockPuzzle
                 go.transform.localPosition = startPost[i];
                 go.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                 go.GetComponent<Shape>().startPos = startPost[i];
+                _rd = Random.Range(0, image.Count);
+                go.GetComponent<Shape>().image = image[_rd];
                 shapeList.Add(go.GetComponent<Shape>());
             }
             isSpawn = false;

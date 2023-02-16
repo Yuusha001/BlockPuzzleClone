@@ -13,13 +13,39 @@ namespace BlockPuzzle
         UnityEngine.UI.Image myImage;
 
         [SerializeField]
+        Sprite original;
+
+        [SerializeField]
         BoxCollider2D myCollider2d;
 
         [SerializeField]
         int squareID;
 
-        public bool isSelected { get; set; }
-        public bool isActive { get; set; }
+        [SerializeField]
+        private bool isSelected;
+
+        [SerializeField]
+        private bool isActive;
+
+        public bool GetisSelected()
+        {
+            return isSelected;
+        }
+
+        public void SetisSelected(bool value)
+        {
+            isSelected = value;
+        }
+
+        public bool GetisActive()
+        {
+            return isActive;
+        }
+
+        public void SetisActive(bool value)
+        {
+            isActive = value;
+        }
 
         public GridSquareState CurrentState
         {
@@ -44,17 +70,27 @@ namespace BlockPuzzle
                     myImage.color = Color.gray;
                     break;
                 case GridSquareState.Active:
-                    isActive = true;
-                    myImage.color = Color.green;
+                    myImage.color = Color.white;
+                    SetisActive(true);
                     break;
                 default:
                     break;
             }
         }
 
+        public void SetOriginalImage()
+        {
+            SetImage(original);
+        }
+
+        public void SetImage(Sprite img)
+        {
+            myImage.sprite = img;
+        }
+
         public bool CanUseThisSquare()
         {
-            if (isSelected && !isActive)
+            if (GetisSelected() && !GetisActive())
                 return true;
             return false;
         }
@@ -65,28 +101,36 @@ namespace BlockPuzzle
             myCollider2d.enabled = false;
         }
 
+        public void DeActiveSquare()
+        {
+            SetState(GridSquareState.Normal);
+            myCollider2d.enabled = true;
+            SetisSelected(false);
+            SetisActive(false);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (isActive)
+            if (GetisActive())
                 return;
             SetState(GridSquareState.Hover);
-            isSelected = true;
+            SetisSelected(true);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            isSelected = true;
-            if (isActive)
+            SetisSelected(true);
+            if (GetisActive())
                 return;
             SetState(GridSquareState.Hover);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (isActive)
+            if (GetisActive())
                 return;
             SetState(GridSquareState.Normal);
-            isSelected = false;
+            SetisSelected(false);
         }
     }
 

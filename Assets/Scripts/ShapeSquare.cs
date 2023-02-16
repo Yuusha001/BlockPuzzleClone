@@ -7,13 +7,6 @@ namespace BlockPuzzle
 {
     public class ShapeSquare : MonoBehaviour
     {
-        [SerializeField]
-        UnityEngine.UI.Image occupiedImg;
-
-        // Start is called before the first frame update
-        // void Start()
-        // {
-        //     occupiedImg.gameObject.SetActive(false);
-        // }
+        public UnityEngine.UI.Image image;
     }
 }

@@ -65,5 +65,6 @@ namespace BlockPuzzle
     {
         public static Action CheckIfShapeCanPlaced;
         public static Action ReturnShapeToStartPosition;
+        public static Action<int> AddScore;
     }
 }

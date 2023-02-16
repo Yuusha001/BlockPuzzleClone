@@ -24,6 +24,7 @@ namespace BlockPuzzle
         Vector3 ShapeSelectedScale = Vector3.one;
         Vector3 OriginalScale = new Vector3(0.6f, 0.6f, 0.6f);
         Vector2 offset = new Vector2(0, 100);
+        public Sprite image;
 
         [SerializeField]
         RectTransform _transform;
@@ -58,6 +59,7 @@ namespace BlockPuzzle
                 var go = ObjPooling.SharedInstance.GetPooledObject("Square");
                 go.transform.SetParent(this.transform);
                 go.transform.localScale = Vector3.one;
+                go.GetComponent<ShapeSquare>().image.sprite = image;
                 currentShape.Add(go);
             }
 
